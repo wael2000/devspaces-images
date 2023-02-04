@@ -36,15 +36,15 @@ ENV ALLOWED_TAGS=${ALLOWED_TAGS}
 
 # NOTE: used to be in /root/.local but now can be found in /opt/app-root/src/.local
 # CONTAINERNAME=devfileregistryoffline && \
- docker build -t ${CONTAINERNAME} . --no-cache  --target builder \
-   --build-arg BOOTSTRAP=true -f build/dockerfiles/Dockerfile 
- mkdir -p /tmp/root-local/ && docker run --rm -v \
-   /tmp/root-local/:/tmp/root-local/ ${CONTAINERNAME} /bin/bash \
-   -c 'cd /opt/app-root/src/.local/ && cp -r bin/ lib/ /tmp/root-local/'
- pushd /tmp/root-local >/dev/null && sudo tar czf root-local.tgz lib/ bin/ && popd >/dev/null && mv -f /tmp/root-local/root-local.tgz . && sudo rm -fr /tmp/root-local/
+# docker build -t ${CONTAINERNAME} . --no-cache  --target builder \
+#   --build-arg BOOTSTRAP=true -f build/dockerfiles/Dockerfile 
+# mkdir -p /tmp/root-local/ && docker run --rm -v \
+#   /tmp/root-local/:/tmp/root-local/ ${CONTAINERNAME} /bin/bash \
+#   -c 'cd /opt/app-root/src/.local/ && cp -r bin/ lib/ /tmp/root-local/'
+# pushd /tmp/root-local >/dev/null && sudo tar czf root-local.tgz lib/ bin/ && popd >/dev/null && mv -f /tmp/root-local/root-local.tgz . && sudo rm -fr /tmp/root-local/
 
 # 2. then add it to dist-git so it's part of this repo
-    rhpkg new-sources root-local.tgz 
+#    rhpkg new-sources root-local.tgz 
 
 # built in Brew, use tarball in lookaside cache; built locally, comment this out
 COPY root-local.tgz /tmp/root-local.tgz
